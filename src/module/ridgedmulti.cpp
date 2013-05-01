@@ -21,6 +21,7 @@
 //
 
 #include "ridgedmulti.h"
+#include <iostream>
 
 using namespace noise::module;
 
@@ -79,7 +80,7 @@ double RidgedMulti::GetValue (double x, double y) const
     // Get the coherent-noise value.
     int seed = (m_seed + curOctave) & 0x7fffffff;
     signal = GradientCoherentNoise2D (nx, ny, seed, m_noiseQuality);
-
+    
     // Make the ridges.
     signal = fabs (signal);
     signal = offset - signal;
@@ -109,5 +110,5 @@ double RidgedMulti::GetValue (double x, double y) const
     y *= m_lacunarity;
   }
   
-  return (value*m_norm) - 1.0;
+  return ((value*m_norm) - 1.5)*2.0;
 }
