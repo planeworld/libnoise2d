@@ -1,6 +1,7 @@
 // curve.cpp
 //
-// Copyright (C) 2003, 2004 Jason Bevins
+// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -71,7 +72,7 @@ int Curve::FindInsertionPos (double inputValue)
   return insertionPos;
 }
 
-double Curve::GetValue (double x, double y, double z) const
+double Curve::GetValue (double x, double y) const
 {
   assert (m_pSourceModule[0] != NULL);
   assert (m_controlPointCount >= 4);

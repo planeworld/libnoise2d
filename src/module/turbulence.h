@@ -1,6 +1,7 @@
 // turbulence.h
 //
-// Copyright (C) 2003, 2004 Jason Bevins
+// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -58,7 +59,7 @@ namespace noise
     /// @image html moduleturbulence.png
     ///
     /// @a Turbulence is the pseudo-random displacement of the input value.
-    /// The GetValue() method randomly displaces the ( @a x, @a y, @a z )
+    /// The GetValue() method randomly displaces the ( @a x, @a y )
     /// coordinates of the input value before retrieving the output value from
     /// the source module.  To control the turbulence, an application can
     /// modify its frequency, its power, and its roughness.
@@ -106,8 +107,8 @@ namespace noise
     /// produce realistic marble-like or "oily" textures.
     ///
     /// Internally, there are three noise::module::Perlin noise modules
-    /// that displace the input value; one for the @a x, one for the @a y,
-    /// and one for the @a z coordinate.
+    /// that displace the input value; one for the @a x and one for the @a y
+    /// coordinate.
     ///
     /// This noise module requires one source module.
     class Turbulence: public Module
@@ -168,8 +169,7 @@ namespace noise
         /// @returns The seed value.
         ///
         /// Internally, there are three noise::module::Perlin noise modules
-        /// that displace the input value; one for the @a x, one for the @a y,
-        /// and one for the @a z coordinate.  
+        /// that displace the input value; one for the @a x and one for the @a y coordinate.  
         int GetSeed () const;
 
         virtual int GetSourceModuleCount () const
@@ -213,8 +213,8 @@ namespace noise
         /// displacement amount, which produces more "kinky" changes.
         ///
         /// Internally, there are three noise::module::Perlin noise modules
-        /// that displace the input value; one for the @a x, one for the @a y,
-        /// and one for the @a z coordinate.  The roughness value is equal to
+        /// that displace the input value; one for the @a x and one for the
+        /// @a y coordinate. The roughness value is equal to
         /// the number of octaves used by the noise::module::Perlin noise
         /// modules.
         void SetRoughness (int roughness)
@@ -230,12 +230,11 @@ namespace noise
         /// @param seed The seed value.
         ///
         /// Internally, there are three noise::module::Perlin noise modules
-        /// that displace the input value; one for the @a x, one for the @a y,
-        /// and one for the @a z coordinate.  This noise module assigns the
+        /// that displace the input value; one for the @a x and one for the @a y
+        /// coordinate.  This noise module assigns the
         /// following seed values to the noise::module::Perlin noise modules:
         /// - It assigns the seed value (@a seed + 0) to the @a x noise module.
         /// - It assigns the seed value (@a seed + 1) to the @a y noise module.
-        /// - It assigns the seed value (@a seed + 2) to the @a z noise module.
         void SetSeed (int seed);
 
       protected:

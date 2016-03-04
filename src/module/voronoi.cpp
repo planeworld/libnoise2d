@@ -1,6 +1,7 @@
 // voronoi.cpp
 //
-// Copyright (C) 2003, 2004 Jason Bevins
+// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -48,7 +49,6 @@ double Voronoi::GetValue (double x, double y) const
   double minDist = 2147483647.0;
   double xCandidate = 0;
   double yCandidate = 0;
-  double zCandidate = 0;
 
   // Inside each unit cube, there is a seed point at a random position.  Go
   // through each of the nearby cubes until we find a cube with a seed point

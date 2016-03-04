@@ -1,6 +1,7 @@
 // translatepoint.h
 //
-// Copyright (C) 2004 Jason Bevins
+// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Original Work: Copyright (C) 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -48,21 +49,17 @@ namespace noise
     /// noise::module::TranslatePoint noise module.
     const double DEFAULT_TRANSLATE_POINT_Y = 0.0;
 
-    /// Default translation factor applied to the @a z coordinate for the
-    /// noise::module::TranslatePoint noise module.
-    const double DEFAULT_TRANSLATE_POINT_Z = 0.0;
-
     /// Noise module that moves the coordinates of the input value before
     /// returning the output value from a source module.
     ///
     /// @image html moduletranslatepoint.png
     ///
-    /// The GetValue() method moves the ( @a x, @a y, @a z ) coordinates of
+    /// The GetValue() method moves the ( @a x, @a y ) coordinates of
     /// the input value by a translation amount before returning the output
     /// value from the source module.  To set the translation amount, call
     /// the SetTranslation() method.  To set the translation amount to
-    /// apply to the individual @a x, @a y, or @a z coordinates, call the
-    /// SetXTranslation(), SetYTranslation() or SetZTranslation() methods,
+    /// apply to the individual @a x or @a y coordinates, call the
+    /// SetXTranslation() or SetYTranslation() methods,
     /// respectively.
     ///
     /// This noise module requires one source module.
@@ -78,9 +75,6 @@ namespace noise
         ///
         /// The default translation amount to apply to the @a y coordinate is
         /// set to noise::module::DEFAULT_TRANSLATE_POINT_Y.
-        ///
-        /// The default translation amount to apply to the @a z coordinate is
-        /// set to noise::module::DEFAULT_TRANSLATE_POINT_Z.
         TranslatePoint ();
 
         virtual int GetSourceModuleCount () const
@@ -108,20 +102,11 @@ namespace noise
           return m_yTranslation;
         }
 
-        /// Returns the translation amount to apply to the @a z coordinate of
-        /// the input value.
-        ///
-        /// @returns The translation amount to apply to the @a z coordinate.
-        double GetZTranslation () const
-        {
-          return m_zTranslation;
-        }
-
         /// Sets the translation amount to apply to the input value.
         ///
         /// @param translation The translation amount to apply.
         ///
-        /// The GetValue() method moves the ( @a x, @a y, @a z ) coordinates
+        /// The GetValue() method moves the ( @a x, @a y ) coordinates
         /// of the input value by a translation amount before returning the
         /// output value from the source module
         void SetTranslation (double translation)
@@ -130,25 +115,21 @@ namespace noise
           m_yTranslation = translation;
         }
 
-        /// Sets the translation amounts to apply to the ( @a x, @a y, @a z )
+        /// Sets the translation amounts to apply to the ( @a x, @a y )
         /// coordinates of the input value.
         ///
         /// @param xTranslation The translation amount to apply to the @a x
         /// coordinate.
         /// @param yTranslation The translation amount to apply to the @a y
         /// coordinate.
-        /// @param zTranslation The translation amount to apply to the @a z
-        /// coordinate.
         ///
-        /// The GetValue() method moves the ( @a x, @a y, @a z ) coordinates
+        /// The GetValue() method moves the ( @a x, @a y ) coordinates
         /// of the input value by a translation amount before returning the
         /// output value from the source module
-        void SetTranslation (double xTranslation, double yTranslation,
-          double zTranslation)
+        void SetTranslation (double xTranslation, double yTranslation)
         {
           m_xTranslation = xTranslation;
           m_yTranslation = yTranslation;
-          m_zTranslation = zTranslation;
         }
 
         /// Sets the translation amount to apply to the @a x coordinate of the
@@ -157,7 +138,7 @@ namespace noise
         /// @param xTranslation The translation amount to apply to the @a x
         /// coordinate.
         ///
-        /// The GetValue() method moves the ( @a x, @a y, @a z ) coordinates
+        /// The GetValue() method moves the ( @a x, @a y ) coordinates
         /// of the input value by a translation amount before returning the
         /// output value from the source module
         void SetXTranslation (double xTranslation)
@@ -171,26 +152,12 @@ namespace noise
         /// @param yTranslation The translation amount to apply to the @a y
         /// coordinate.
         ///
-        /// The GetValue() method moves the ( @a x, @a y, @a z ) coordinates
+        /// The GetValue() method moves the ( @a x, @a y ) coordinates
         /// of the input value by a translation amount before returning the
         /// output value from the source module
         void SetYTranslation (double yTranslation)
         {
           m_yTranslation = yTranslation;
-        }
-
-        /// Sets the translation amount to apply to the @a z coordinate of the
-        /// input value.
-        ///
-        /// @param zTranslation The translation amount to apply to the @a z
-        /// coordinate.
-        ///
-        /// The GetValue() method moves the ( @a x, @a y, @a z ) coordinates
-        /// of the input value by a translation amount before returning the
-        /// output value from the source module
-        void SetZTranslation (double zTranslation)
-        {
-          m_zTranslation = zTranslation;
         }
 
       protected:
@@ -202,10 +169,6 @@ namespace noise
         /// Translation amount applied to the @a y coordinate of the input
         /// value.
         double m_yTranslation;
-
-        /// Translation amount applied to the @a z coordinate of the input
-        /// value.
-        double m_zTranslation;
 
     };
 

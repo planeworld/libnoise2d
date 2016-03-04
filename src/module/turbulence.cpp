@@ -1,6 +1,7 @@
 // turbulence.cpp
 //
-// Copyright (C) 2003, 2004 Jason Bevins
+// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -52,7 +53,7 @@ double Turbulence::GetValue (double x, double y) const
   // Get the values from the three noise::module::Perlin noise modules and
   // add each value to each coordinate of the input value.  There are also
   // some offsets added to the coordinates of the input values.  This prevents
-  // the distortion modules from returning zero if the (x, y, z) coordinates,
+  // the distortion modules from returning zero if the (x, y) coordinates,
   // when multiplied by the frequency, are near an integer boundary.  This is
   // due to a property of gradient coherent noise, which returns zero at
   // integer boundaries.

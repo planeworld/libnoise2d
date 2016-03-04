@@ -4,6 +4,8 @@
 // by me.  I'm not going to copyright a bunch of random numbers (although
 // you could probably do so in the States, the way things are going down
 // there :-)
+// Original version from Jason Bevins was 3D, changed to 2D. Won't copyright
+// either ;-) -- Torsten Büschenfeld.
 //
 // This file is in the public domain.
 //

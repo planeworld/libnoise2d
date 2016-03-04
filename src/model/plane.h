@@ -1,6 +1,7 @@
 // plane.h
 //
-// Copyright (C) 2004 Owen Jacobson
+// Modified Work: Copyright (C) 2012 Torsten Büschenfeld
+// Original Work: Copyright (C) 2004 Owen Jacobson
 //
 // This library is free software; you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -39,10 +40,9 @@ namespace noise
     /// Model that defines the surface of a plane.
     ///
     /// This model returns an output value from a noise module given the
-    /// coordinates of an input value located on the surface of an ( @a x,
-    /// @a z ) plane.
+    /// coordinates of an input value located on ( @a x ).
     ///
-    /// To generate an output value, pass the ( @a x, @a z ) coordinates of
+    /// To generate an output value, pass the ( @a x ) coordinates of
     /// an input value to the GetValue() method.
     ///
     /// This model is useful for creating:
@@ -77,11 +77,10 @@ namespace noise
         }
 
         /// Returns the output value from the noise module given the
-        /// ( @a x, @a z ) coordinates of the specified input value located
+        /// ( @a x ) coordinate of the specified input value located
         /// on the surface of the plane.
         ///
         /// @param x The @a x coordinate of the input value.
-        /// @param z The @a z coordinate of the input value.
         ///
         /// @returns The output value from the noise module.
         ///

@@ -1,6 +1,7 @@
 // modulebase.h
 //
-// Copyright (C) 2003, 2004 Jason Bevins
+// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -181,7 +182,7 @@ namespace noise
     /// noise module, the application can now begin to generate output values
     /// with that noise module.
     ///
-    /// To generate an output value, pass the ( @a x, @a y, @a z ) coordinates
+    /// To generate an output value, pass the ( @a x, @a y ) coordinates
     /// of an input value to the GetValue() method.
     ///
     /// <b>Using a noise module to generate terrain height maps or textures</b>
@@ -189,8 +190,8 @@ namespace noise
     /// One way to generate a terrain height map or a texture is to first
     /// allocate a 2-dimensional array of floating-point values.  For each
     /// array element, pass the array subscripts as @a x and @a y coordinates
-    /// to the GetValue() method (leaving the @a z coordinate set to zero) and
-    /// place the resulting output value into the array element.
+    /// to the GetValue() method and place the resulting output value into
+    /// the array element.
     ///
     /// <b>Creating your own noise modules</b>
     ///
@@ -279,7 +280,6 @@ namespace noise
         ///
         /// @param x The @a x coordinate of the input value.
         /// @param y The @a y coordinate of the input value.
-        /// @param z The @a z coordinate of the input value.
         ///
         /// @returns The output value.
         ///

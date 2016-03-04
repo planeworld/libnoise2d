@@ -1,6 +1,7 @@
 // cache.h
 //
-// Copyright (C) 2003, 2004 Jason Bevins
+// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -47,7 +48,7 @@ namespace noise
     /// If an application passes an input value to the GetValue() method that
     /// differs from the previously passed-in input value, this noise module
     /// instructs the source module to calculate the output value.  This
-    /// value, as well as the ( @a x, @a y, @a z ) coordinates of the input
+    /// value, as well as the ( @a x, @a y ) coordinates of the input
     /// value, are stored (cached) in this noise module.
     ///
     /// If the application passes an input value to the GetValue() method
