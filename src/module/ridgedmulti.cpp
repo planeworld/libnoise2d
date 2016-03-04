@@ -1,6 +1,6 @@
 // ridgedmulti.cpp
 //
-// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Modified Work: Copyright (C) 2012, 2013, 2016 Torsten Büschenfeld
 // Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
