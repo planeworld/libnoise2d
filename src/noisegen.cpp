@@ -25,7 +25,11 @@
 #include "interp.h"
 #include "vectortable.h"
 
+#include <cmath>
+
 using namespace noise;
+
+const double SQRT1_2 = 1.0 / std::sqrt(2.0);
 
 // Specifies the version of the coherent-noise functions to use.
 // - Set to 2 to use the current version.
@@ -123,7 +127,7 @@ double noise::GradientNoise2D (double fx, double fy, int ix,
   // vector.  The resulting value is gradient noise.  Apply a scaling value
   // so that this noise value ranges from -1.0 to 1.0.
   return ((xvGradient * xvPoint)
-        + (yvGradient * yvPoint)) * M_SQRT1_2;
+        + (yvGradient * yvPoint)) * SQRT1_2;
 }
 
 int noise::IntValueNoise2D (int x, int y, int seed)
