@@ -1,0 +1,13 @@
+ 
+dist: trusty
+sudo: required
+
+install:
+  - sudo apt-get install g++
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Release ../
+  - make 
+  - sudo make install
