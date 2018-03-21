@@ -1,6 +1,6 @@
 // billow.h
 //
-// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Modified Work: Copyright (C) 2012 - 2018 Torsten Büschenfeld
 // Original Work: Copyright (C) 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
@@ -57,6 +57,9 @@ namespace noise
 
     /// Default noise quality for the the noise::module::Billow noise module.
     const noise::NoiseQuality DEFAULT_BILLOW_QUALITY = QUALITY_STD;
+    
+    /// Default noise type for the noise::module::Billow noise module.
+    const noise::NoiseType DEFAULT_BILLOW_TYPE = TYPE_GRADIENT;
 
     /// Default noise seed for the the noise::module::Billow noise module.
     const int DEFAULT_BILLOW_SEED = 0;
@@ -197,6 +200,17 @@ namespace noise
         {
           m_noiseQuality = noiseQuality;
         }
+        
+        /// Sets the type of the billowy noise.
+        ///
+        /// @param noiseType The type of the billowy noise.
+        ///
+        /// See noise::NoiseType for definitions of the
+        /// coherent-noise types.
+        void SetNoiseType (noise::NoiseType noiseType)
+        {
+          m_noiseType = noiseType;
+        }
 
         /// Sets the number of octaves that generate the billowy noise.
         /// This is the original or maximum number of octaves. Norma-
@@ -292,6 +306,9 @@ namespace noise
 
         /// Quality of the billowy noise.
         noise::NoiseQuality m_noiseQuality;
+        
+        /// Type of the billowy noise.
+        noise::NoiseType m_noiseType;
 
         /// Total number of octaves that generate the billowy noise.
         int m_octaveCount;

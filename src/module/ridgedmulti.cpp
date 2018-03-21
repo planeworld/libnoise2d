@@ -1,6 +1,6 @@
 // ridgedmulti.cpp
 //
-// Modified Work: Copyright (C) 2012, 2013, 2016 Torsten Büschenfeld
+// Modified Work: Copyright (C) 2012 - 2018 Torsten Büschenfeld
 // Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
@@ -31,6 +31,7 @@ RidgedMulti::RidgedMulti ():
   m_frequency           (DEFAULT_RIDGED_FREQUENCY   ),
   m_lacunarity          (DEFAULT_RIDGED_LACUNARITY  ),
   m_noiseQuality        (DEFAULT_RIDGED_QUALITY     ),
+  m_noiseType           (DEFAULT_RIDGED_TYPE        ),
   m_norm                (1.0),
   m_octaveCount         (DEFAULT_RIDGED_OCTAVE_COUNT),
   m_octaveCountTmp      (DEFAULT_RIDGED_OCTAVE_COUNT),
@@ -70,45 +71,96 @@ double RidgedMulti::GetValue (double x, double y) const
   double offset = 1.0;
   double gain = 2.0;
 
-  for (int curOctave = 0; curOctave < m_octaveCountTmp; curOctave++) {
+  switch (m_noiseType)
+  {
+    case noise::TYPE_GRADIENT:
+    {
+        for (int curOctave = 0; curOctave < m_octaveCountTmp; curOctave++)
+        {
+            // Make sure that these floating-point values have the same range as a 32-
+            // bit integer so that we can pass them to the coherent-noise functions.
+            double nx, ny;
+            nx = MakeInt32Range (x);
+            ny = MakeInt32Range (y);
 
-    // Make sure that these floating-point values have the same range as a 32-
-    // bit integer so that we can pass them to the coherent-noise functions.
-    double nx, ny;
-    nx = MakeInt32Range (x);
-    ny = MakeInt32Range (y);
+            // Get the coherent-noise value.
+            int seed = (m_seed + curOctave) & 0x7fffffff;
+            signal = GradientCoherentNoise2D (nx, ny, seed, m_noiseQuality);
+            
+            // Make the ridges.
+            signal = fabs (signal);
+            signal = offset - signal;
 
-    // Get the coherent-noise value.
-    int seed = (m_seed + curOctave) & 0x7fffffff;
-    signal = GradientCoherentNoise2D (nx, ny, seed, m_noiseQuality);
-    
-    // Make the ridges.
-    signal = fabs (signal);
-    signal = offset - signal;
+            // Square the signal to increase the sharpness of the ridges.
+            signal *= signal;
 
-    // Square the signal to increase the sharpness of the ridges.
-    signal *= signal;
+            // The weighting from the previous octave is applied to the signal.
+            // Larger values have higher weights, producing sharp points along the
+            // ridges.
+            signal *= weight;
 
-    // The weighting from the previous octave is applied to the signal.
-    // Larger values have higher weights, producing sharp points along the
-    // ridges.
-    signal *= weight;
+            // Weight successive contributions by the previous signal.
+            weight = signal * gain;
+            if (weight > 1.0) {
+            weight = 1.0;
+            }
+            if (weight < 0.0) {
+            weight = 0.0;
+            }
 
-    // Weight successive contributions by the previous signal.
-    weight = signal * gain;
-    if (weight > 1.0) {
-      weight = 1.0;
+            // Add the signal to the output value.
+            value += (signal * m_pSpectralWeights[curOctave]);
+
+            // Go to the next octave.
+            x *= m_lacunarity;
+            y *= m_lacunarity;
+        }
+        break;
     }
-    if (weight < 0.0) {
-      weight = 0.0;
+    case noise::TYPE_VALUE:
+    {
+        for (int curOctave = 0; curOctave < m_octaveCountTmp; curOctave++)
+        {
+            // Make sure that these floating-point values have the same range as a 32-
+            // bit integer so that we can pass them to the coherent-noise functions.
+            double nx, ny;
+            nx = MakeInt32Range (x);
+            ny = MakeInt32Range (y);
+
+            // Get the coherent-noise value.
+            int seed = (m_seed + curOctave) & 0x7fffffff;
+            signal = ValueCoherentNoise2D (nx, ny, seed, m_noiseQuality);
+            
+            // Make the ridges.
+            signal = fabs (signal);
+            signal = offset - signal;
+
+            // Square the signal to increase the sharpness of the ridges.
+            signal *= signal;
+
+            // The weighting from the previous octave is applied to the signal.
+            // Larger values have higher weights, producing sharp points along the
+            // ridges.
+            signal *= weight;
+
+            // Weight successive contributions by the previous signal.
+            weight = signal * gain;
+            if (weight > 1.0) {
+            weight = 1.0;
+            }
+            if (weight < 0.0) {
+            weight = 0.0;
+            }
+
+            // Add the signal to the output value.
+            value += (signal * m_pSpectralWeights[curOctave]);
+
+            // Go to the next octave.
+            x *= m_lacunarity;
+            y *= m_lacunarity;
+        }
+        break;
     }
-
-    // Add the signal to the output value.
-    value += (signal * m_pSpectralWeights[curOctave]);
-
-    // Go to the next octave.
-    x *= m_lacunarity;
-    y *= m_lacunarity;
   }
   
   return ((value*m_norm) - 1.5)*2.0;

@@ -1,6 +1,6 @@
 // ridgedmulti.h
 //
-// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Modified Work: Copyright (C) 2012 - 2018 Torsten Büschenfeld
 // Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
@@ -54,6 +54,9 @@ namespace noise
     /// Default noise quality for the noise::module::RidgedMulti noise
     /// module.
     const noise::NoiseQuality DEFAULT_RIDGED_QUALITY = QUALITY_STD;
+    
+    /// Default noise type for the noise::module::RidgetMulti noise module.
+    const noise::NoiseType DEFAULT_RIDGED_TYPE = TYPE_GRADIENT;
 
     /// Default noise seed for the noise::module::RidgedMulti noise module.
     const int DEFAULT_RIDGED_SEED = 0;
@@ -238,6 +241,17 @@ namespace noise
         {
           m_noiseQuality = noiseQuality;
         }
+        
+        /// Sets the type of the ridged-multifractal noise.
+        ///
+        /// @param noiseType The type of the ridged-multfractal noise.
+        ///
+        /// See noise::NoiseType for definitions of the
+        /// coherent-noise types.
+        void SetNoiseType (noise::NoiseType noiseType)
+        {
+          m_noiseType = noiseType;
+        }
 
         /// Sets the number of octaves that generate the ridged-multifractal
         /// noise. This is the original or maximum number of octaves. Norma-
@@ -326,6 +340,9 @@ namespace noise
 
         /// Quality of the ridged-multifractal noise.
         noise::NoiseQuality m_noiseQuality;
+        
+        /// Type of the ridged-multifractal noise.
+        noise::NoiseType m_noiseType;
 
         /// Total number of octaves that generate the ridged-multifractal
         /// noise.
