@@ -1,6 +1,6 @@
 // noisegen.h
 //
-// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Modified Work: Copyright (C) 2012 - 2018 Torsten Büschenfeld
 // Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
@@ -57,6 +57,23 @@ namespace noise
     /// is because the first and second derivatives of that function are
     /// continuous at integer boundaries.
     QUALITY_BEST = 2
+
+  };
+  
+  /// Enumerates the noise type, which is either value noise or gradient
+  /// noise.
+  enum NoiseType
+  {
+
+    /// Generates gradient noise with smooth transitions in every
+    /// direction. Maximum amplitude of the resulting noise is not
+    /// calculated, since only the gradient is normalized to [-1, 1].
+    TYPE_GRADIENT = 0,
+
+    /// Generates value noise with visible artifacts concerning x and y
+    /// axis. Normalization directly refers max and min values, hence,
+    /// maximum amplitude can be calculated.
+    TYPE_VALUE = 1,
 
   };
 

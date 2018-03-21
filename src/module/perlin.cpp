@@ -1,6 +1,6 @@
 // perlin.cpp
 //
-// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Modified Work: Copyright (C) 2012 - 2018 Torsten Büschenfeld
 // Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
@@ -30,6 +30,7 @@ Perlin::Perlin ():
   m_frequency       (DEFAULT_PERLIN_FREQUENCY   ),
   m_lacunarity      (DEFAULT_PERLIN_LACUNARITY  ),
   m_noiseQuality    (DEFAULT_PERLIN_QUALITY     ),
+  m_noiseType       (DEFAULT_PERLIN_TYPE        ),
   m_octaveCount     (DEFAULT_PERLIN_OCTAVE_COUNT),
   m_octaveCountTmp  (DEFAULT_PERLIN_OCTAVE_COUNT),
   m_persistence     (DEFAULT_PERLIN_PERSISTENCE ),
@@ -50,25 +51,56 @@ double Perlin::GetValue (double x, double y) const
 
   x *= m_frequency;
   y *= m_frequency;
+  
+  switch (m_noiseType)
+  {
+    case noise::TYPE_GRADIENT:
+    {
+        for (int curOctave = 0; curOctave < m_octaveCount; curOctave++)
+        {
+            // Make sure that these floating-point values have the same range as a 32-
+            // bit integer so that we can pass them to the coherent-noise functions.
+            nx = MakeInt32Range (x);
+            ny = MakeInt32Range (y);
 
-  for (int curOctave = 0; curOctave < m_octaveCount; curOctave++) {
+            // Get the coherent-noise value from the input value and add it to the
+            // final result.
+            seed = (m_seed + curOctave) & 0xffffffff;
+            signal = GradientCoherentNoise2D (nx, ny, seed, m_noiseQuality);
+            value += signal * curPersistence;
 
-    // Make sure that these floating-point values have the same range as a 32-
-    // bit integer so that we can pass them to the coherent-noise functions.
-    nx = MakeInt32Range (x);
-    ny = MakeInt32Range (y);
+            // Prepare the next octave.
+            x *= m_lacunarity;
+            y *= m_lacunarity;
+            curPersistence *= m_persistence;
+        }
+        break;
+    }
+    case noise::TYPE_VALUE:
+    {
+        for (int curOctave = 0; curOctave < m_octaveCount; curOctave++)
+        {
+            // Make sure that these floating-point values have the same range as a 32-
+            // bit integer so that we can pass them to the coherent-noise functions.
+            nx = MakeInt32Range (x);
+            ny = MakeInt32Range (y);
 
-    // Get the coherent-noise value from the input value and add it to the
-    // final result.
-    seed = (m_seed + curOctave) & 0xffffffff;
-    signal = GradientCoherentNoise2D (nx, ny, seed, m_noiseQuality);
-    value += signal * curPersistence;
+            // Get the coherent-noise value from the input value and add it to the
+            // final result.
+            seed = (m_seed + curOctave) & 0xffffffff;
+            signal = ValueCoherentNoise2D (nx, ny, seed, m_noiseQuality);
+            value += signal * curPersistence;
 
-    // Prepare the next octave.
-    x *= m_lacunarity;
-    y *= m_lacunarity;
-    curPersistence *= m_persistence;
+            // Prepare the next octave.
+            x *= m_lacunarity;
+            y *= m_lacunarity;
+            curPersistence *= m_persistence;
+        }
+        break;
+    }
   }
+
+  
   
   return value*m_norm;
 }

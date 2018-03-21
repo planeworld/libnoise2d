@@ -1,6 +1,6 @@
 // perlin.h
 //
-// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Modified Work: Copyright (C) 2012 - 2018 Torsten Büschenfeld
 // Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
@@ -55,6 +55,9 @@ namespace noise
 
     /// Default noise quality for the noise::module::Perlin noise module.
     const noise::NoiseQuality DEFAULT_PERLIN_QUALITY = QUALITY_STD;
+    
+    /// Default noise type for the noise::module::Perlin noise module.
+    const noise::NoiseType DEFAULT_PERLIN_TYPE = TYPE_GRADIENT;
 
     /// Default noise seed for the noise::module::Perlin noise module.
     const int DEFAULT_PERLIN_SEED = 0;
@@ -279,6 +282,17 @@ namespace noise
         {
           m_noiseQuality = noiseQuality;
         }
+        
+        /// Sets the type of the Perlin noise.
+        ///
+        /// @param noiseType The type of the Perlin noise.
+        ///
+        /// See noise::NoiseType for definitions of the
+        /// coherent-noise types.
+        void SetNoiseType (noise::NoiseType noiseType)
+        {
+          m_noiseType = noiseType;
+        }
 
         /// Sets the number of octaves that generate the Perlin noise.
         /// This is the original or maximum number of octaves. Norma-
@@ -375,6 +389,9 @@ namespace noise
 
         /// Quality of the Perlin noise.
         noise::NoiseQuality m_noiseQuality;
+        
+        /// Type of the Perlin noise.
+        noise::NoiseType m_noiseType;
 
         /// Total number of octaves that generate the Perlin noise.
         int m_octaveCount;
