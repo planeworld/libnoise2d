@@ -10,6 +10,7 @@ Main modifications include:
     * Normalisation to [-1, 1]
 * Add temporary setting of octaves to allow for correct subsampling without aliasing
 * Add possibility to switch between value and gradient noise
+* Add option to use xxhash as an alternative hash function for value noise
 
 Installation
 ------------
