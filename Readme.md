@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/planeworld/libnoise2d.svg?branch=master)](https://travis-ci.org/planeworld/libnoise2d)
+[![AUR package](https://repology.org/badge/version-for-repo/aur/libnoise2d.svg)](https://repology.org/metapackage/libnoise2d)
 
 libnoise2d
 ==========
