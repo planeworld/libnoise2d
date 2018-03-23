@@ -1,4 +1,9 @@
 PROJECT (libnoise2d)
 cmake_minimum_required(VERSION 2.6)
 
+OPTION(USE_XXHASH "Use xxhash for value noise." OFF)
+IF(USE_XXHASH)
+    ADD_DEFINITIONS(-DVALUE_NOISE_USE_XXHASH)
+ENDIF(USE_XXHASH)
+
 ADD_SUBDIRECTORY(src)

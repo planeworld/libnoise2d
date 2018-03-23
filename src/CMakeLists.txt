@@ -1,10 +1,13 @@
 INCLUDE_DIRECTORIES (
+    ${CMAKE_HOME_DIRECTORY}/3rdParty/xxhash
     ${CMAKE_HOME_DIRECTORY}/src/model
     ${CMAKE_HOME_DIRECTORY}/src/module
     ${CMAKE_HOME_DIRECTORY}/src
 )
 
 SET(HDRS
+    ${CMAKE_HOME_DIRECTORY}/3rdParty/xxhash/xxhash.h
+
     ${CMAKE_HOME_DIRECTORY}/src/basictypes.h
     ${CMAKE_HOME_DIRECTORY}/src/exception.h
     ${CMAKE_HOME_DIRECTORY}/src/interp.h
@@ -56,6 +59,8 @@ SET(MODULE_HDRS
 )
 
 SET(SRCS
+    ${CMAKE_HOME_DIRECTORY}/3rdParty/xxhash/xxhash.c
+
     ${CMAKE_HOME_DIRECTORY}/src/latlon.cpp
     ${CMAKE_HOME_DIRECTORY}/src/noisegen.cpp 
     ${CMAKE_HOME_DIRECTORY}/src/model/cylinder.cpp 

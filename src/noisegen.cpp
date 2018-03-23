@@ -1,6 +1,6 @@
 // noisegen.cpp
 //
-// Modified Work: Copyright (C) 2012, 2016 Torsten Büschenfeld
+// Modified Work: Copyright (C) 2012 - 2018 Torsten Büschenfeld
 // Original Work: Copyright (C) 2003, 2004 Jason Bevins
 //
 // This library is free software; you can redistribute it and/or modify it
@@ -24,6 +24,7 @@
 #include "noisegen.h"
 #include "interp.h"
 #include "vectortable.h"
+#include "xxhash.h"
 
 #include <cmath>
 
@@ -184,9 +185,21 @@ double noise::ValueCoherentNoise2D (double x, double y, int seed,
   ix1  = LinearInterp (n0, n1, xs);
   return LinearInterp (ix0, ix1, ys);
 }
-
+#ifdef VALUE_NOISE_USE_XXHASH
+    #include <cstdint>
+#endif
 double noise::ValueNoise2D (int x, int y, int seed)
 {
-  return 1.0 - ((double)IntValueNoise2D (x, y, seed) / 1073741824.0);
+    #ifdef VALUE_NOISE_USE_XXHASH
+        constexpr auto FACTOR = 2.0 / 4294967296.0;
+  
+        std::uint64_t pos = 0u;
+        pos = std::uint64_t(x) << 32 | std::uint32_t(y);
+        auto hash = XXH32(&pos, 8, seed);
+  
+        return 1.0 - (double(hash) * FACTOR);
+    #else
+        return 1.0 - ((double)IntValueNoise2D (x, y,seed) / 1073741824.0);
+    #endif
 }
 
