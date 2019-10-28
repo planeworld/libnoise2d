@@ -163,5 +163,5 @@ double RidgedMulti::GetValue (double x, double y) const
     }
   }
   
-  return ((value*m_norm) - 1.5)*2.0;
+  return (value*m_norm*2.0-1.0);
 }
