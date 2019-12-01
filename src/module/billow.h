@@ -239,7 +239,7 @@ namespace noise
           m_octaveCount = octaveCount;
           // m_norm is a normalizing factor to keep the signal in [-1.0,1.0]
           // The maximum signal amplitude can be calculated, since it is a geometric series
-          m_norm = (1.0 - m_persistence) / (1.0-pow(m_persistence,m_octaveCount+1));
+          m_norm = 1.0 - m_persistence;
         }
         
         /// Sets the number of octaves that generate the billowy noise,
