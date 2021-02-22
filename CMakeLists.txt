@@ -1,5 +1,5 @@
 PROJECT (libnoise2d)
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.1)
 
 OPTION(USE_XXHASH "Use xxhash for value noise." OFF)
 IF(USE_XXHASH)
